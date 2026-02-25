@@ -11,7 +11,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, doc, onSnapshot, query, where, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // CONFIG I FIREBASE-IT TEND
+        // CONFIG I RI I FIREBASE-IT TEND
         const firebaseConfig = {
           apiKey: "AIzaSyA6uYc5lAjtjyIX0cVMSt1U1KYCVkQIeM0",
           authDomain: "testberber-94243.firebaseapp.com",
@@ -61,7 +61,10 @@
         }
         .home-grid { display: grid; grid-template-cols: repeat(2, 1fr); gap: 15px; padding: 0 20px; margin-top: -30px; }
         .home-card { background: white; border-radius: 20px; padding: 25px 10px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; }
+        .gold-card { background: linear-gradient(135deg, #111827 0%, #1f2937 100%); color: #fbbf24; border-radius: 25px; padding: 25px; margin-bottom: 25px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); border: 1px solid rgba(251, 191, 36, 0.3); }
         .member-input { width: 100%; padding: 15px; border: 1px solid #e5e7eb; border-radius: 15px; margin-bottom: 12px; outline: none; background: white; font-weight: bold; }
+        .berber-select { border: 1px solid #e5e7eb; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer; text-align: center; background: white; transition: 0.2s; }
+        .berber-select.selected { border-color: #fbbf24; background: #fffbeb; color: #b45309; box-shadow: 0 0 0 2px #fbbf24; }
         .time-slot { padding: 12px; border: 1px solid #e5e7eb; border-radius: 12px; text-align: center; font-weight: bold; cursor: pointer; background: white; }
         .time-slot.selected { background: #111827; color: white; border-color: #111827; }
         .time-slot.busy { background: #fee2e2 !important; color: #ef4444 !important; border-color: #fecaca !important; text-decoration: line-through; opacity: 0.6; pointer-events: none; }
@@ -80,7 +83,7 @@
 <body class="pb-24">
 
     <header id="main-header" class="video-header">
-        <h1 class="text-4xl font-black italic tracking-tighter uppercase">SALLONI IM</h1>
+        <h1 class="text-4xl font-black italic tracking-tighter uppercase text-center">SALLONI IM</h1>
         <p class="text-[10px] tracking-[5px] opacity-90 uppercase mt-2">Pejë, Kosovë</p>
     </header>
 
@@ -90,17 +93,49 @@
                 <div class="bg-blue-50 p-4 rounded-full mb-3 text-blue-600"><i class="fa-regular fa-calendar-check text-2xl"></i></div>
                 <span class="text-xs font-bold uppercase tracking-wider">Rezervo</span>
             </div>
-            <div class="home-card" onclick="switchPage('shop')">
-                <div class="bg-emerald-50 p-4 rounded-full mb-3 text-emerald-500"><i class="fa-solid fa-cart-shopping text-2xl"></i></div>
-                <span class="text-xs font-bold uppercase tracking-wider">Produktet</span>
+            <div class="home-card" onclick="switchPage('membership')">
+                <div class="bg-amber-50 p-4 rounded-full mb-3 text-amber-500"><i class="fa-solid fa-crown text-2xl"></i></div>
+                <span class="text-xs font-bold uppercase tracking-wider">Membership</span>
+            </div>
+            <div class="home-card col-span-2 flex-row space-x-4 py-5 mt-2" onclick="switchPage('shop')">
+                <i class="fa-solid fa-cart-shopping text-emerald-500 text-2xl"></i>
+                <span class="text-xs font-bold uppercase tracking-wider">Produktet Tona</span>
             </div>
         </div>
     </main>
 
+    <div id="view-membership" class="hidden p-6 bg-gray-50 min-h-screen">
+        <div class="gold-card text-center">
+            <i class="fa-solid fa-crown text-4xl mb-2"></i>
+            <h2 class="text-2xl font-black uppercase italic tracking-widest">Gold Member</h2>
+            <div class="grid grid-cols-2 gap-2 text-[10px] font-bold uppercase text-left mt-4 opacity-90">
+                <div class="flex items-center space-x-2"><i class="fa-solid fa-check text-amber-400"></i><span>3 Qethje / muaj</span></div>
+                <div class="flex items-center space-x-2"><i class="fa-solid fa-check text-amber-400"></i><span>Zbritje Produkte</span></div>
+                <div class="flex items-center space-x-2"><i class="fa-solid fa-check text-amber-400"></i><span>Prioritet</span></div>
+                <div class="flex items-center space-x-2"><i class="fa-solid fa-check text-amber-400"></i><span>Pa pritje</span></div>
+            </div>
+        </div>
+        <div class="bg-white p-5 rounded-[25px] shadow-sm">
+            <input type="text" id="mName" placeholder="Emri & Mbiemri" class="member-input">
+            <input type="tel" id="mPhone" placeholder="Numri i Telefonit" class="member-input">
+            <p class="text-[10px] font-black uppercase text-gray-400 text-center mb-3">Zgjedh Berberin Preferuar</p>
+            <div class="grid grid-cols-2 gap-2 mb-6">
+                <div class="berber-select" onclick="selectMB('Besniku', this)">Besniku</div>
+                <div class="berber-select" onclick="selectMB('Artani', this)">Artani</div>
+            </div>
+            <div id="membership-schedule" class="hidden border-t pt-4">
+                <p class="text-[10px] font-bold text-center text-gray-400 mb-3">CAKTO TERMININ E PARË</p>
+                <div class="flex space-x-3 overflow-x-auto mb-4 pb-2 no-scrollbar" id="m-cal-days"></div>
+                <div class="grid grid-cols-3 gap-2" id="m-time-grid"></div>
+            </div>
+            <button onclick="confirmGold()" class="w-full bg-amber-500 text-white py-5 rounded-2xl font-black mt-6 uppercase tracking-widest shadow-lg">Bëhu Gold Member</button>
+        </div>
+    </div>
+
     <div id="view-shop" class="hidden p-6 bg-gray-50 min-h-screen">
         <div class="flex items-center space-x-4 mb-6">
             <button onclick="switchPage('home')" class="bg-white p-3 rounded-2xl shadow-sm"><i class="fa-solid fa-chevron-left"></i></button>
-            <h2 class="font-black text-xl uppercase italic">PRODUKTET</h2>
+            <h2 class="font-black text-xl uppercase italic">NISH MAN SERIES</h2>
         </div>
         <div class="grid grid-cols-1 gap-4">
             <div class="bg-white p-4 rounded-[30px] shadow-sm flex items-center space-x-4">
@@ -131,10 +166,25 @@
         </div>
     </div>
 
+    <div id="view-kontakt" class="hidden p-6 bg-gray-50 min-h-screen">
+        <h2 class="text-center font-black text-xl uppercase italic mb-6">Kontakti</h2>
+        <div class="bg-white p-6 rounded-[35px] shadow-sm space-y-5 border border-gray-100">
+            <div class="flex items-center space-x-4">
+                <div class="w-11 h-11 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm"><i class="fa-solid fa-location-dot text-lg"></i></div>
+                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Lokacioni</p><p class="font-black text-slate-800">Pejë</p></div>
+            </div>
+            <div class="flex items-center space-x-4" onclick="window.location.href='tel:+38349721735'">
+                <div class="w-11 h-11 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 shadow-sm"><i class="fa-solid fa-phone text-lg"></i></div>
+                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Telefoni</p><p class="font-black text-slate-800">+383 49 721 735</p></div>
+            </div>
+        </div>
+    </div>
+
     <nav class="bottom-nav">
         <div onclick="switchPage('home')" id="nav-home" class="nav-item active"><i class="fa-solid fa-house text-xl mb-1"></i><span>Ballina</span></div>
         <div onclick="openBooking()" class="nav-item"><i class="fa-solid fa-scissors text-xl mb-1"></i><span>Rezervo</span></div>
         <div onclick="switchPage('terminet')" id="nav-terminet" class="nav-item"><i class="fa-regular fa-clock text-xl mb-1"></i><span>Terminet</span></div>
+        <div onclick="switchPage('kontakt')" id="nav-kontakt" class="nav-item"><i class="fa-solid fa-address-card text-xl mb-1"></i><span>Kontakt</span></div>
     </nav>
 
     <div id="bookingModal" class="modal-overlay">
@@ -143,21 +193,25 @@
                 <h2 class="font-black text-xl uppercase italic">Rezervo</h2>
                 <button onclick="closeModal()" class="text-3xl text-gray-300">&times;</button>
             </div>
+            
             <div id="step1">
-                <p class="text-[10px] font-bold text-gray-400 uppercase mb-3">Zgjedh Shërbimin</p>
                 <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s1" onclick="setService('Qethje', 's1')">
-                    <span class="font-bold uppercase text-sm">Qethje Klasike</span><span class="font-black">5.00€</span>
+                    <div><span class="font-bold block uppercase">Qethje</span></div><span class="font-black">5€</span>
+                </div>
+                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s2" onclick="setService('Qethje + Rroje', 's2')">
+                    <div><span class="font-bold block uppercase">Qethje + Rroje</span></div><span class="font-black">6€</span>
                 </div>
                 <button id="v1" class="vazhdo-btn" onclick="goStep(2)">Vazhdo</button>
             </div>
+
             <div id="step2" class="hidden">
-                <p class="text-[10px] font-bold text-gray-400 uppercase mb-3">Zgjedh Berberin</p>
                 <div class="grid grid-cols-1 gap-3 mb-4">
-                    <div class="p-4 border-2 rounded-2xl text-center font-bold uppercase text-sm" id="b1" onclick="setB('Besniku', 'b1')">Besniku</div>
-                    <div class="p-4 border-2 rounded-2xl text-center font-bold uppercase text-sm" id="b2" onclick="setB('Artani', 'b2')">Artani</div>
+                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b1" onclick="setB('Besniku', 'b1')">Besniku</div>
+                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b2" onclick="setB('Artani', 'b2')">Artani</div>
                 </div>
                 <button id="v2" class="vazhdo-btn" onclick="goStep(3)">Vazhdo</button>
             </div>
+
             <div id="step3" class="hidden">
                 <div class="flex space-x-3 overflow-x-auto mb-6 pb-2 no-scrollbar" id="cal-days"></div>
                 <div class="grid grid-cols-3 gap-2 mb-6" id="time-grid"></div>
@@ -170,10 +224,11 @@
 
     <script>
         let booking = { s: '', b: '', d: 'Mër 26', t: '' };
+        let mBooking = { s: 'Membership Gold', b: '', d: 'Mër 26', t: '' };
         const users = { "Besniku": "besi123", "Artani": "arta99" };
 
         function switchPage(p) {
-            ['home', 'shop', 'terminet'].forEach(v => {
+            ['home', 'membership', 'shop', 'terminet', 'kontakt'].forEach(v => {
                 const el = document.getElementById('view-'+v);
                 if(el) el.classList.add('hidden');
             });
@@ -191,6 +246,14 @@
             ['step1', 'step2', 'step3'].forEach(s => document.getElementById(s).classList.add('hidden'));
             document.getElementById('step'+n).classList.remove('hidden');
             if(n==3) buildSchedule('cal-days', 'time-grid', booking);
+        }
+
+        function selectMB(berber, el) {
+            mBooking.b = berber;
+            document.querySelectorAll('.berber-select').forEach(b => b.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('membership-schedule').classList.remove('hidden');
+            buildSchedule('m-cal-days', 'm-time-grid', mBooking);
         }
 
         function setService(s, id) {
@@ -211,6 +274,7 @@
             const daysContainer = document.getElementById(calId); daysContainer.innerHTML = '';
             const days = ['Mër 26', 'Enj 27', 'Pre 28', 'Sht 01', 'Hën 03'];
             const querySnapshot = await window.getTerminePerBllokim(obj.b, obj.d);
+
             days.forEach(day => {
                 let d = document.createElement('div');
                 d.className = `p-4 rounded-2xl min-w-[85px] text-center font-bold ${obj.d === day ? 'bg-slate-900 text-white' : 'bg-gray-100'}`;
@@ -218,6 +282,7 @@
                 d.onclick = () => { obj.d = day; buildSchedule(calId, gridId, obj); };
                 daysContainer.appendChild(d);
             });
+
             const grid = document.getElementById(gridId); grid.innerHTML = '';
             for(let h=9; h<=18; h++) {
                 for(let m of ['00', '30']) {
@@ -235,21 +300,32 @@
         async function confirmApp() {
             let n = document.getElementById('cName').value;
             let p = document.getElementById('cPhone').value;
-            if(!n || !booking.t) return alert("Plotësoni emrin dhe orarin!");
-            
+            if(!n || !booking.t) return alert("Plotësoni të dhënat!");
             const success = await window.saveToFirebase({ ...booking, name: n, phone: p, createdAt: new Date().toISOString() });
-            
             if(success) {
-                // TELEGRAMI YNE AKTIV
-                const telegramToken = "8769404766:AAE9URC43P4uIKBRCeH-4NLpC BAsfGZHDZo"; 
+                // TELEGRAMI I SAKTË
+                const telegramToken = "8769404766:AAE9URC43P4uIKBRCeH-4NLpCBAsfGZHDZo"; 
                 const chatId = "-5134695270"; 
-                const msg = `✂️ *REZERVIM I RI*\n\n👤 Klienti: ${n}\n📞 Tel: ${p}\n🧔 Berberi: ${booking.b}\n📅 Data: ${booking.d}\n⏰ Ora: ${booking.t}\n💇‍♂️ Sherbimi: ${booking.s}`;
-                
+                const msg = `✂️ *REZERVIM I RI*\n👤 Klienti: ${n}\n📞 Tel: ${p}\n🧔 Berberi: ${booking.b}\n📅 Data: ${booking.d}\n⏰ Ora: ${booking.t}\n💇‍♂️ Shërbimi: ${booking.s}`;
                 fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`);
-                
-                alert("Rezervimi u krye me sukses!");
+                alert("Rezervimi u krye!");
                 location.reload();
-            } else { alert("Gabim në lidhje!"); }
+            }
+        }
+
+        async function confirmGold() {
+            let n = document.getElementById('mName').value;
+            let p = document.getElementById('mPhone').value;
+            if(!n || !mBooking.t) return alert("Plotësoni të dhënat!");
+            const success = await window.saveToFirebase({ ...mBooking, name: n, phone: p, type: 'GOLD' });
+            if(success) {
+                const telegramToken = "8769404766:AAE9URC43P4uIKBRCeH-4NLpCBAsfGZHDZo";
+                const chatId = "-5134695270";
+                const msgGold = `👑 *ANËTAR I RI GOLD*\n👤 Klienti: ${n}\n📞 Tel: ${p}\n🧔 Berberi: ${mBooking.b}\n📅 Termini: ${mBooking.d} në ${mBooking.t}`;
+                fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(msgGold)}&parse_mode=Markdown`);
+                alert("Urime! Jeni Gold Member.");
+                location.reload();
+            }
         }
 
         function handleLogin() {
@@ -260,7 +336,7 @@
                 document.getElementById('staff-name').innerText = "Berberi: " + id;
                 window.getTerminetRealTime(id, (terminet) => {
                     const container = document.getElementById('list-app');
-                    container.innerHTML = terminet.map(a => `<div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-slate-900"><b>${a.name}</b> - ${a.t} (${a.d})<br><button onclick="window.deleteTerminFirebase('${a.id}')" class="text-red-500 text-xs font-bold mt-2 uppercase">Fshije</button></div>`).join('');
+                    container.innerHTML = terminet.map(a => `<div class="bg-white p-5 rounded-2xl border-l-8 border-slate-900 shadow-sm mb-3"><b>${a.name}</b> - ${a.t} (${a.d})<br><button onclick="window.deleteTerminFirebase('${a.id}')" class="text-red-500 text-xs font-bold mt-2 uppercase">Fshije</button></div>`).join('');
                 });
             } else alert("Gabim!");
         }
