@@ -30,7 +30,7 @@
 
         window.getTerminetRealTime = function(barberName, callback) {
             let searchName = barberName;
-            if(barberName === "Agon") searchName = "Agon";
+            if(barberName === "Agon") searchName = "Agon Tahiri";
             if(barberName === "Leonis") searchName = "Leonis Gashi";
 
             const q = query(collection(db, "appointments"), where("b", "==", searchName));
@@ -125,7 +125,7 @@
             <input type="tel" id="mPhone" placeholder="Numri i Telefonit" class="member-input">
             <p class="text-[10px] font-black uppercase text-gray-400 text-center mb-3">Zgjedh Berberin Preferuar</p>
             <div class="grid grid-cols-2 gap-2 mb-6">
-                <div class="berber-select" onclick="selectMB('Agon', this)">Agon</div>
+                <div class="berber-select" onclick="selectMB('Agon Tahiri', this)">Agon</div>
                 <div class="berber-select" onclick="selectMB('Leonis Gashi', this)">Leonis</div>
                 <div class="berber-select" onclick="selectMB('Dori', this)">Dori</div>
                 <div class="berber-select" onclick="selectMB('Enis', this)">Enis</div>
@@ -163,11 +163,11 @@
             <h2 class="text-center font-black text-2xl tracking-tighter uppercase italic text-slate-900 mb-2">BERBER TEST</h2>
             <div class="flex items-center space-x-4">
                 <div class="w-11 h-11 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm"><i class="fa-solid fa-location-dot text-lg"></i></div>
-                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Lokacioni</p><p class="font-black text-slate-800">prishtine</p></div>
+                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Lokacioni</p><p class="font-black text-slate-800">Pejë</p></div>
             </div>
-            <div class="flex items-center space-x-4" onclick="window.location.href='tel:+3834950050'">
+            <div class="flex items-center space-x-4" onclick="window.location.href='tel:+38349721735'">
                 <div class="w-11 h-11 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 shadow-sm"><i class="fa-solid fa-phone text-lg"></i></div>
-                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Telefoni</p><p class="font-black text-slate-800">+383 49 500 500</p></div>
+                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Telefoni</p><p class="font-black text-slate-800">+383 49 721 735</p></div>
             </div>
             <div class="flex items-center space-x-4">
                 <div class="w-11 h-11 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 rounded-2xl flex items-center justify-center text-white shadow-sm"><i class="fa-brands fa-instagram text-lg"></i></div>
@@ -179,7 +179,7 @@
             </div>
             <div class="flex items-center space-x-4">
                 <div class="w-11 h-11 bg-gray-100 rounded-2xl flex items-center justify-center text-slate-700 shadow-sm"><i class="fa-solid fa-building text-lg"></i></div>
-                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Adresa</p><p class="font-black text-slate-800 text-[10px] uppercase">Agoni, Pr, 30000</p></div>
+                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Adresa</p><p class="font-black text-slate-800 text-[10px] uppercase">Agonicrew, Pejë, 30000</p></div>
             </div>
         </div>
 
@@ -230,7 +230,7 @@
 
             <div id="step2" class="hidden">
                 <div class="grid grid-cols-1 gap-3 mb-4">
-                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b1" onclick="setB('Agon ', 'b1')">Agon </div>
+                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b1" onclick="setB('Agon Tahiri', 'b1')">Agon Tahiri</div>
                     <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b2" onclick="setB('Leonis Gashi', 'b2')">Leonis Gashi</div>
                     <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b3" onclick="setB('Dori', 'b3')">Dori</div>
                     <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b4" onclick="setB('Enis', 'b4')">Enis</div>
@@ -380,4 +380,3 @@
     </script>
 </body>
 </html>
-
