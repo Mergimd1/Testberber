@@ -82,6 +82,30 @@
         .vazhdo-btn.active { opacity: 1; pointer-events: auto; background: #ef4444; }
         .hidden { display: none !important; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        /* ANIMACIONI I RI GOLD */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            background: linear-gradient(90deg, #111827 0%, #1f2937 100%);
+            color: #fbbf24;
+            border-top: 1px solid rgba(251, 191, 36, 0.2);
+            padding: 10px 0;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 18s linear infinite;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+        .marquee-item { margin: 0 25px; display: inline-flex; align-items: center; }
+        .price-badge { background: #fbbf24; color: #111827; padding: 2px 8px; border-radius: 6px; margin-left: 8px; font-size: 11px; }
     </style>
 </head>
 <body class="pb-24">
@@ -107,14 +131,38 @@
             </div>
         </div>
 
-        <marquee class="gold-marquee bg-amber-500 text-slate-900 p-2 font-bold" scrollamount="10">Ketu jane sherbimet me qmime: Qethje - 5€ • Mjekerr - 4€ • Larje Flokesh - 1€ • Frizure - 3€</marquee>
-        <marquee class="red-marquee bg-red-500 text-white p-2 font-bold mt-2" scrollamount="10">Ofertat Speciale: Qethje + Larje - 6€ • Ofertë 1 (5 Qethje) - 20€</marquee>
+        <div class="marquee-container mt-8">
+            <div class="marquee-content">
+                <span class="marquee-item">Qethje <span class="price-badge">5€</span></span>
+                <span class="marquee-item">Qethje + Rroje <span class="price-badge">6€</span></span>
+                <span class="marquee-item">Mjekërr <span class="price-badge">4€</span></span>
+                <span class="marquee-item">Frizurë <span class="price-badge">2€</span></span>
+                <span class="marquee-item">Ngjyrosje <span class="price-badge">10€</span></span>
+                <span class="marquee-item">Qethje <span class="price-badge">5€</span></span>
+                <span class="marquee-item">Qethje + Rroje <span class="price-badge">6€</span></span>
+                <span class="marquee-item">Mjekërr <span class="price-badge">4€</span></span>
+                <span class="marquee-item">Frizurë <span class="price-badge">2€</span></span>
+                <span class="marquee-item">Ngjyrosje <span class="price-badge">10€</span></span>
+            </div>
+        </div>
+
+        <div class="marquee-container" style="border-top: 1px solid rgba(251, 191, 36, 0.1);">
+            <div class="marquee-content" style="animation-direction: reverse; animation-duration: 22s;">
+                <span class="marquee-item"><i class="fa-solid fa-crown mr-2"></i> Gold Member <span class="price-badge">25€</span></span>
+                <span class="marquee-item"><i class="fa-solid fa-bolt mr-2"></i> Pa Pritje</span>
+                <span class="marquee-item"><i class="fa-solid fa-star mr-2"></i> Prioritet</span>
+                <span class="marquee-item"><i class="fa-solid fa-percent mr-2"></i> Zbritje Produkte</span>
+                <span class="marquee-item"><i class="fa-solid fa-crown mr-2"></i> Gold Member <span class="price-badge">25€</span></span>
+                <span class="marquee-item"><i class="fa-solid fa-bolt mr-2"></i> Pa Pritje</span>
+                <span class="marquee-item"><i class="fa-solid fa-star mr-2"></i> Prioritet</span>
+                <span class="marquee-item"><i class="fa-solid fa-percent mr-2"></i> Zbritje Produkte</span>
+            </div>
+        </div>
     </main>
 
     <div id="view-membership" class="hidden p-6 bg-gray-50 min-h-screen">
         <div class="gold-card text-center">
             <div class="absolute top-4 right-4 bg-amber-500 text-slate-900 px-3 py-1 rounded-full font-black text-sm shadow-lg">25€</div>
-            
             <i class="fa-solid fa-crown text-4xl mb-2"></i>
             <h2 class="text-2xl font-black uppercase italic tracking-widest">Gold Member</h2>
             <div class="grid grid-cols-2 gap-2 text-[10px] font-bold uppercase text-left mt-4 opacity-90">
@@ -162,14 +210,13 @@
     <div id="view-kontakt" class="hidden p-6 bg-gray-50 min-h-screen">
         <h2 class="text-center font-black text-xl uppercase italic mb-6">Kontakti</h2>
         <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070" class="w-full h-44 object-cover rounded-[30px] mb-6 shadow-lg">
-
         <div class="bg-white p-6 rounded-[35px] shadow-sm space-y-5 mb-5 border border-gray-100">
             <h2 class="text-center font-black text-2xl tracking-tighter uppercase italic text-slate-900 mb-2">BERBER TEST</h2>
             <div class="flex items-center space-x-4">
                 <div class="w-11 h-11 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm"><i class="fa-solid fa-location-dot text-lg"></i></div>
-                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Lokacioni</p><p class="font-black text-slate-800">prishtine</p></div>
+                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Lokacioni</p><p class="font-black text-slate-800">Prishtinë</p></div>
             </div>
-            <div class="flex items-center space-x-4" onclick="window.location.href='tel:+3834950050'">
+            <div class="flex items-center space-x-4" onclick="window.location.href='tel:+38349500500'">
                 <div class="w-11 h-11 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 shadow-sm"><i class="fa-solid fa-phone text-lg"></i></div>
                 <div><p class="text-[10px] font-bold text-gray-400 uppercase">Telefoni</p><p class="font-black text-slate-800">+383 49 500 500</p></div>
             </div>
@@ -181,18 +228,6 @@
                 <div class="w-11 h-11 bg-sky-100 rounded-2xl flex items-center justify-center text-sky-600 shadow-sm"><i class="fa-solid fa-globe text-lg"></i></div>
                 <div><p class="text-[10px] font-bold text-gray-400 uppercase">Web</p><p class="font-black text-slate-800 text-sm italic">www.agonicrew.com</p></div>
             </div>
-            <div class="flex items-center space-x-4">
-                <div class="w-11 h-11 bg-gray-100 rounded-2xl flex items-center justify-center text-slate-700 shadow-sm"><i class="fa-solid fa-building text-lg"></i></div>
-                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Adresa</p><p class="font-black text-slate-800 text-[10px] uppercase">Agoni, Pr, 30000</p></div>
-            </div>
-        </div>
-
-        <div class="bg-white p-6 rounded-[30px] shadow-sm flex items-center justify-between border border-gray-100">
-            <div class="flex items-center space-x-4">
-                <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-red-500"><i class="fa-solid fa-clock-rotate-left text-xl"></i></div>
-                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Orari i Punës</p><p class="font-black text-xl text-slate-800">09:00 - 19:00</p></div>
-            </div>
-            <span class="bg-amber-100 text-amber-600 text-[10px] font-black px-3 py-1 rounded-lg uppercase">Pushimi: 13-14</span>
         </div>
     </div>
 
@@ -234,7 +269,7 @@
 
             <div id="step2" class="hidden">
                 <div class="grid grid-cols-1 gap-3 mb-4">
-                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b1" onclick="setB('Agon ', 'b1')">Agon </div>
+                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b1" onclick="setB('Agon', 'b1')">Agon</div>
                     <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b2" onclick="setB('Leonis Gashi', 'b2')">Leonis Gashi</div>
                     <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b3" onclick="setB('Dori', 'b3')">Dori</div>
                     <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b4" onclick="setB('Enis', 'b4')">Enis</div>
@@ -301,17 +336,29 @@
         }
 
         async function buildSchedule(calId, gridId, obj) {
-            const daysContainer = document.getElementById(calId); daysContainer.innerHTML = '';
+            const daysContainer = document.getElementById(calId); 
+            if(!daysContainer) return;
+            daysContainer.innerHTML = '';
+            
             const days = ['Mar 24', 'Mër 25', 'Enj 26', 'Pre 27', 'Sht 28'];
+            
+            if(typeof window.getTerminePerBllokim !== 'function') {
+                setTimeout(() => buildSchedule(calId, gridId, obj), 500);
+                return;
+            }
+
             const querySnapshot = await window.getTerminePerBllokim(obj.b, obj.d);
+            
             days.forEach(day => {
                 let d = document.createElement('div');
-                d.className = `p-4 rounded-2xl min-w-[85px] text-center font-bold ${obj.d === day ? 'bg-slate-900 text-white' : 'bg-gray-100'}`;
+                d.className = `p-4 rounded-2xl min-w-[85px] text-center font-bold cursor-pointer ${obj.d === day ? 'bg-slate-900 text-white' : 'bg-gray-100'}`;
                 d.innerText = day;
                 d.onclick = () => { obj.d = day; buildSchedule(calId, gridId, obj); };
                 daysContainer.appendChild(d);
             });
-            const grid = document.getElementById(gridId); grid.innerHTML = '';
+
+            const grid = document.getElementById(gridId); 
+            grid.innerHTML = '';
             for(let h=9; h<=18; h++) {
                 for(let m of ['00', '30']) {
                     let t = `${h<10?'0'+h:h}:${m}`;
@@ -343,7 +390,7 @@
         async function confirmGold() {
             let n = document.getElementById('mName').value;
             let p = document.getElementById('mPhone').value;
-            if(!n || !mBooking.t) return alert("Plotësoni të dhënat!");
+            if(!n || !mBooking.t || !mBooking.b) return alert("Plotësoni të dhënat dhe zgjedhni orarin!");
             const success = await window.saveToFirebase({ ...mBooking, name: n, phone: p, type: 'GOLD' });
             if(success) {
                 const token = "8769404766:AAE9URC43P4uIKBRCeH-4NLpCBAsfGZHDZo";
