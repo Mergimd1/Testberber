@@ -82,6 +82,32 @@
         .vazhdo-btn.active { opacity: 1; pointer-events: auto; background: #ef4444; }
         .hidden { display: none !important; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        /* ANIMACIONI I RI PER SHERBIMET SLIDE */
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .marquee-container {
+            background: #fca5a5; /* Ngjyra si në foton tënde */
+            color: #111827;
+            padding: 12px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            margin-top: 30px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        .marquee-item { margin: 0 30px; display: inline-flex; align-items: center; }
+        .price-badge { background: #111827; color: white; padding: 2px 8px; border-radius: 6px; margin-left: 8px; font-size: 12px; }
     </style>
 </head>
 <body class="pb-24">
@@ -104,6 +130,19 @@
             <div class="home-card col-span-2 flex-row space-x-4 py-5 mt-2" onclick="alert('Së shpejti...')">
                 <i class="fa-solid fa-cart-shopping text-emerald-500 text-2xl"></i>
                 <span class="text-xs font-bold uppercase tracking-wider">Produktet Tona</span>
+            </div>
+        </div>
+
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <span class="marquee-item"><i class="fa-solid fa-scissors mr-2"></i> Qethje <span class="price-badge">5€</span></span>
+                <span class="marquee-item"><i class="fa-solid fa-soap mr-2"></i> Qethje + Rroje <span class="price-badge">6€</span></span>
+                <span class="marquee-item"><i class="fa-solid fa-user-ninja mr-2"></i> Mjekërr <span class="price-badge">4€</span></span>
+                <span class="marquee-item"><i class="fa-solid fa-spray-can mr-2"></i> Frizurë <span class="price-badge">2€</span></span>
+                <span class="marquee-item"><i class="fa-solid fa-droplet mr-2"></i> Ngjyrosje <span class="price-badge">10€</span></span>
+                <span class="marquee-item"><i class="fa-solid fa-child mr-2"></i> Fëmijë <span class="price-badge">4€</span></span>
+                <span class="marquee-item"><i class="fa-solid fa-scissors mr-2"></i> Qethje <span class="price-badge">5€</span></span>
+                <span class="marquee-item"><i class="fa-solid fa-soap mr-2"></i> Qethje + Rroje <span class="price-badge">6€</span></span>
             </div>
         </div>
     </main>
@@ -290,7 +329,6 @@
             
             const days = ['Mar 24', 'Mër 25', 'Enj 26', 'Pre 27', 'Sht 28'];
             
-            // Sigurohemi qe funksioni i Firebase eshte ngarkuar
             if(typeof window.getTerminePerBllokim !== 'function') {
                 setTimeout(() => buildSchedule(calId, gridId, obj), 500);
                 return;
