@@ -85,29 +85,36 @@
 
         /* ANIMACIONI I RI PER SHERBIMET SLIDE */
         @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
         .marquee-container {
-            background: #fca5a5; /* Ngjyra si në foton tënde */
+            background: #fca5a5;
             color: #111827;
-            padding: 12px 0;
+            padding: 10px 0;
             overflow: hidden;
             white-space: nowrap;
             margin-top: 30px;
             border-top: 1px solid rgba(0,0,0,0.05);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .marquee-container.gold {
+            background: linear-gradient(90deg, #111827 0%, #1f2937 100%);
+            color: #fbbf24;
+            margin-top: 0;
+            border-top: 1px solid rgba(251, 191, 36, 0.2);
+            padding: 8px 0;
         }
         .marquee-content {
             display: inline-block;
-            animation: marquee 20s linear infinite;
+            animation: marquee 15s linear infinite;
             font-weight: 900;
             text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 1px;
+            font-size: 13px;
         }
-        .marquee-item { margin: 0 30px; display: inline-flex; align-items: center; }
-        .price-badge { background: #111827; color: white; padding: 2px 8px; border-radius: 6px; margin-left: 8px; font-size: 12px; }
+        .marquee-item { margin: 0 25px; display: inline-flex; align-items: center; }
+        .price-badge { background: #111827; color: white; padding: 2px 8px; border-radius: 6px; margin-left: 8px; font-size: 11px; }
+        .marquee-container.gold .price-badge { background: #fbbf24; color: #111827; }
     </style>
 </head>
 <body class="pb-24">
@@ -135,14 +142,29 @@
 
         <div class="marquee-container">
             <div class="marquee-content">
-                <span class="marquee-item"><i class="fa-solid fa-scissors mr-2"></i> Qethje <span class="price-badge">5€</span></span>
-                <span class="marquee-item"><i class="fa-solid fa-soap mr-2"></i> Qethje + Rroje <span class="price-badge">6€</span></span>
-                <span class="marquee-item"><i class="fa-solid fa-user-ninja mr-2"></i> Mjekërr <span class="price-badge">4€</span></span>
-                <span class="marquee-item"><i class="fa-solid fa-spray-can mr-2"></i> Frizurë <span class="price-badge">2€</span></span>
-                <span class="marquee-item"><i class="fa-solid fa-droplet mr-2"></i> Ngjyrosje <span class="price-badge">10€</span></span>
-                <span class="marquee-item"><i class="fa-solid fa-child mr-2"></i> Fëmijë <span class="price-badge">4€</span></span>
-                <span class="marquee-item"><i class="fa-solid fa-scissors mr-2"></i> Qethje <span class="price-badge">5€</span></span>
-                <span class="marquee-item"><i class="fa-solid fa-soap mr-2"></i> Qethje + Rroje <span class="price-badge">6€</span></span>
+                <span class="marquee-item">Qethje <span class="price-badge">5€</span></span>
+                <span class="marquee-item">Qethje + Rroje <span class="price-badge">6€</span></span>
+                <span class="marquee-item">Mjekërr <span class="price-badge">4€</span></span>
+                <span class="marquee-item">Frizurë <span class="price-badge">2€</span></span>
+                <span class="marquee-item">Ngjyrosje <span class="price-badge">10€</span></span>
+                <span class="marquee-item">Qethje <span class="price-badge">5€</span></span>
+                <span class="marquee-item">Qethje + Rroje <span class="price-badge">6€</span></span>
+                <span class="marquee-item">Mjekërr <span class="price-badge">4€</span></span>
+                <span class="marquee-item">Frizurë <span class="price-badge">2€</span></span>
+                <span class="marquee-item">Ngjyrosje <span class="price-badge">10€</span></span>
+            </div>
+        </div>
+
+        <div class="marquee-container gold">
+            <div class="marquee-content" style="animation-direction: reverse; animation-duration: 20s;">
+                <span class="marquee-item"><i class="fa-solid fa-crown mr-2"></i> Gold Member <span class="price-badge">25€</span></span>
+                <span class="marquee-item"><i class="fa-solid fa-bolt mr-2"></i> Pa Pritje</span>
+                <span class="marquee-item"><i class="fa-solid fa-star mr-2"></i> Prioritet</span>
+                <span class="marquee-item"><i class="fa-solid fa-percent mr-2"></i> Zbritje Produkte</span>
+                <span class="marquee-item"><i class="fa-solid fa-crown mr-2"></i> Gold Member <span class="price-badge">25€</span></span>
+                <span class="marquee-item"><i class="fa-solid fa-bolt mr-2"></i> Pa Pritje</span>
+                <span class="marquee-item"><i class="fa-solid fa-star mr-2"></i> Prioritet</span>
+                <span class="marquee-item"><i class="fa-solid fa-percent mr-2"></i> Zbritje Produkte</span>
             </div>
         </div>
     </main>
@@ -418,3 +440,4 @@
     </script>
 </body>
 </html>
+
